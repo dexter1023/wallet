@@ -32,6 +32,16 @@ namespace Wallet
                 configuration.RootPath = "ClientApp/build";
             });
 
+            services.AddCors((options) =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
+
             services.AddEntityFrameworkNpgsql().AddDbContext<WalletDbContext>(
                 opt => opt.UseNpgsql(Configuration.GetConnectionString("Default"))
             );
@@ -49,6 +59,12 @@ namespace Wallet
             }
             else
             {
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>() 
+                    .CreateScope()) 
+                { 
+                    serviceScope.ServiceProvider.GetService<WalletDbContext>() 
+                        .Database.Migrate(); 
+                } 
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
@@ -57,9 +73,8 @@ namespace Wallet
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
             app.UseRouting();
-
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

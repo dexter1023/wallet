@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import Table from '../components/Table';
-import TableRow from '../components/TableRow';
 import {TransactionService} from '../services/transaction.service'
 import { ITransaction } from "../types/transaction.model";
 
@@ -25,3 +24,5 @@ export const List: React.FC = () => {
         <Table data={transactions} />
     )
 }
+
+export default List

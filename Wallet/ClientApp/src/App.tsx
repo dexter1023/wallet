@@ -1,5 +1,6 @@
 import React, {  } from 'react';
+import List from './views/List'
 
-const App = () => <div>HEHE</div>
+const App = () => <List />
 
 export default App;

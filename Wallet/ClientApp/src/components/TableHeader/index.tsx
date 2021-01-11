@@ -2,12 +2,14 @@ import React from 'react'
 
 const TableHeader = () => {
     return (
-        <th>
-            <td>Nazwa</td>
-            <td>Kategoria</td>
-            <td>Typ transakcji</td>
-            <td>Akcje</td>
-        </th>
+        <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Kategoria</th>
+                <th>Typ transakcji</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
     )
 }
 

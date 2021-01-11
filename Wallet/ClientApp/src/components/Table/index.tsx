@@ -9,14 +9,18 @@ interface ITableProps {
 }
 
 function mapRows (data: ITransaction[]): React.ReactNode {
-    return data.map(el => <TableRow data={el}/>)
+    
+    return data.map((el, i) => <TableRow key={`row-${i}`} data={el}/>)
 }
 
 const Table = ({data}: ITableProps) => {
+    console.log(data)
     return (
         <table>
             <TableHeader />
-            {mapRows(data)}
+            <tbody>
+                {data.map((el, i) => <TableRow key={`row-${i}`} data={el}/>)}
+            </tbody>
         </table>
     )
 }

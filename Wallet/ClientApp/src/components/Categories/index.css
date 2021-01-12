@@ -1,0 +1,27 @@
+.chips-wrapper {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+}
+
+.modal-button {
+  grid-row: 1/2;
+}
+
+.chips {
+  grid-row: 2/3;
+  display: flex;
+  flex-flow: row wrap;
+}
+.chips h3 {
+  width: 100%;
+  color: #fff;
+}
+
+.chips .chip {
+  margin-right: 5px;
+}
+
+.chips .chip:last-child {
+  margin-right: 0;
+}

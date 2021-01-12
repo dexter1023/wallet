@@ -1,0 +1,13 @@
+.chip {
+  border-radius: 25px;
+  padding: 10px;
+  max-width: 100px;
+}
+
+.not-selected {
+  opacity: 0.7;
+}
+
+.not-selected:hover {
+  opacity: 1;
+}

@@ -1,0 +1,15 @@
+.table-row {
+  padding: 15px;
+  border-bottom: 1px solid #fff;
+  transition: ease-in-out 0.2s;
+}
+.table-row td {
+  text-align: center;
+}
+.table-row:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.table-row:last-child {
+  border-bottom: 0;
+}

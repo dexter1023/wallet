@@ -1,10 +1,13 @@
-import React, { ButtonHTMLAttributes } from 'react'
-// import './index.scss'
+import React from 'react'
+import './index.css'
 
+interface IButtonProps {
+    variant?: string
+}
 
-export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({children, type, ...props}) => {
+export const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & IButtonProps> = ({children, variant, ...props}) => {
     return (
-        <button {...props}>{children}</button>
+        <button className={variant ? `button-${variant}`: 'button'} {...props}>{children}</button>
     )
 }
 

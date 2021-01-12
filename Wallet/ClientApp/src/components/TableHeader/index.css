@@ -1,0 +1,15 @@
+.table-header {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.table-header th {
+  padding: 15px;
+}
+.table-header th:first-child {
+  border-radius: 15px 0 0 0;
+}
+
+.table-header th:last-child {
+  border-radius: 0 15px 0 0;
+}

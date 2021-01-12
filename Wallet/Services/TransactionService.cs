@@ -18,9 +18,11 @@ namespace Wallet.Services
             context = _context;
         }
 
-        public async Task<List<TransactionModel>> GetTransactions()
+        public async Task<List<TransactionModel>> GetTransactions(int[] categories, int page, int limit)
         {
-            var transactions = await context.Transaction.Include(t => t.category).ToListAsync();
+            Console.Write(categories);
+            var skip = (page - 1) * limit;
+            var transactions = await context.Transaction.Where(t => categories.Contains(t.category.id)).Skip(skip).Take(limit).Include(t => t.category).ToListAsync();
             return transactions;
         }
 

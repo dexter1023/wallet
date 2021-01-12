@@ -17,9 +17,9 @@ namespace Wallet.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTransactionss()
+        public async Task<IActionResult> GetTransactionss([FromQuery(Name = "selectedCategories[]")] int[] selectedCategories, [FromQuery(Name = "page")] int page, [FromQuery(Name = "limit")] int limit)
         {
-            return Ok(await transactionService.GetTransactions());
+            return Ok(await transactionService.GetTransactions(selectedCategories, page, limit));
         }
 
         [HttpPost]

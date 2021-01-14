@@ -25,6 +25,7 @@ const initTransaction = {
 export const List: React.FC = () => {
     const [init, setInit] = useState<boolean>(false)
     const [transactions, setTransactions] = useState<ITransaction[]>([])
+    const [count, setCount] = useState<number>(0)
     const [transactionToAdd, setTransactionToAdd] = useState<ITransactionDTO>(initTransaction)
     const [transactionModal, setTransactionModal] = useState<boolean>(false)
     const [categories, setCategories] = useState<ICategory[]>([])
@@ -48,7 +49,8 @@ export const List: React.FC = () => {
                 ...pagination, selectedCategories
             }
             const data = await transactionService.getTransactions(filters)
-            setTransactions(data);
+            setTransactions(data.transactions);
+            setCount(data.count)
         } catch (e) {
             console.log(e)
         }
@@ -111,6 +113,8 @@ export const List: React.FC = () => {
         await categoryService.deleteCategory(id)
     }
 
+    const handleCloseCategoriesModal = () => setCategoriesModal(false)
+
     const handleChangeTransaction = (id: number, name: string | null, value: string | number) => {
         setTransactions(transactions.map(el => {
             if(el.id === id && name) {
@@ -129,6 +133,7 @@ export const List: React.FC = () => {
 
     const handleDeleteTransaction = async (id: number) => {
         await transactionService.deleteTransaction(id)
+        await fetchTransactions()
     }
 
     const handleOpenTransactionModal = () => {
@@ -147,6 +152,7 @@ export const List: React.FC = () => {
         await transactionService.createTransaction(transactionToAdd)
         setTransactionToAdd(initTransaction)
         setTransactionModal(false)
+        fetchTransactions()
     }
 
     return (
@@ -160,6 +166,9 @@ export const List: React.FC = () => {
                 selectedCategories={selectedCategories}
                 handleClickCategory={handleClickCategory}
             />
+            <div>
+                <h3>Sumaryczna kwota transakcji: {count}</h3>
+            </div>
             <Table data={transactions} categories={categories} handleEdit={handleEditTransaction} handleDelete={handleDeleteTransaction} handleChangeTransaction={handleChangeTransaction}/>
             <TransactionModal
                 data={transactionToAdd}
@@ -173,6 +182,7 @@ export const List: React.FC = () => {
                 categories={categories}
                 categoryToAdd={categoryToAdd}
                 isOpen={categoriesModal}
+                handleClose={handleCloseCategoriesModal}
                 handleAddCategory={handleSaveCategory}
                 handleUpdateCategory={handleUpdateCategory}
                 handleChangeCategory={handleChangeCategory}

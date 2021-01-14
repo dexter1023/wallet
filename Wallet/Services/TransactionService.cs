@@ -18,12 +18,23 @@ namespace Wallet.Services
             context = _context;
         }
 
-        public async Task<List<TransactionModel>> GetTransactions(int[] categories, int page, int limit)
+        public async Task<TransactionResponse> GetTransactions(int[] categories, int page, int limit)
         {
-            Console.Write(categories);
             var skip = (page - 1) * limit;
             var transactions = await context.Transaction.Where(t => categories.Contains(t.category.id)).Skip(skip).Take(limit).Include(t => t.category).ToListAsync();
-            return transactions;
+            float count = 0;
+            for (int i = 0; i < transactions.Count; i++)
+            {
+                if (transactions[i].type == "deposit")
+                {
+                    count += transactions[i].amount;
+                }
+                else
+                {
+                    count -= transactions[i].amount;
+                }
+            }
+            return new TransactionResponse { transactions = transactions, count = count };
         }
 
         public async Task<TransactionModel> SaveTransaction(TransactionDto transaction)
@@ -75,6 +86,7 @@ namespace Wallet.Services
             }
 
             context.Remove(transaction);
+            await context.SaveChangesAsync();
         }
     }
 }

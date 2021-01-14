@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from 'react-modal'
+import Modal from '../Modal'
 import { ICategory, ICategoryDTO } from "../../types/category.type"
 import Input from '../InputForm'
 import Button from '../Button'
@@ -8,6 +8,7 @@ interface ICategoriesModalProps {
     categories: ICategory[]
     categoryToAdd: ICategoryDTO
     isOpen: boolean
+    handleClose: () => void
     handleAddCategory: () => void
     handleUpdateCategory: (id: number) => void
     handleDeleteCategory: (id: number) => void
@@ -28,19 +29,21 @@ const CategoryRow: React.FC<ICategoryRowProps> = ({category, type , onSubmit, on
         <div className="category-row">
             <Input placeholder="Nazwa" name="name" value={category.name} onInput={handleChange}/>
             <Input type="color" name="color" value={category.color} onInput={handleChange}/>
-            <Button onClick={onSubmit}>Zapisz</Button>
+            <Button onClick={onSubmit}>{type === 'update' ? 'Zapisz' : 'Dodaj'}</Button>
             {type === 'update' ? <Button onClick={onDelete} variant="error">Usuń</Button> : ''}
         </div>
     )
 }
 
-const CategoriesModal: React.FC<ICategoriesModalProps> = ({categories, categoryToAdd, isOpen, handleAddCategory, handleChangeCategory, handleChangeCategoryToAdd, handleUpdateCategory, handleDeleteCategory}) => {
+const CategoriesModal: React.FC<ICategoriesModalProps> = ({categories, categoryToAdd, isOpen, handleClose, handleAddCategory, handleChangeCategory, handleChangeCategoryToAdd, handleUpdateCategory, handleDeleteCategory}) => {
     return (
-        <Modal isOpen={isOpen}>
-            <CategoryRow category={categoryToAdd} type="save" onSubmit={handleAddCategory} handleChange={handleChangeCategoryToAdd} />
-            { categories.map(el => 
-                <CategoryRow key={`category-row-${el.id}`} category={el} type="update" handleChange={(evt) => handleChangeCategory(el.id, evt.currentTarget.getAttribute('name'), evt.currentTarget.value)} onSubmit={() => handleUpdateCategory(el.id)} onDelete={() => handleDeleteCategory(el.id)}/>
-            )}
+        <Modal isOpen={isOpen} handleClose={handleClose}>
+            <div className="wrapper">
+                <CategoryRow category={categoryToAdd} type="save" onSubmit={handleAddCategory} handleChange={handleChangeCategoryToAdd} />
+                { categories.map(el => 
+                    <CategoryRow key={`category-row-${el.id}`} category={el} type="update" handleChange={(evt) => handleChangeCategory(el.id, evt.currentTarget.getAttribute('name'), evt.currentTarget.value)} onSubmit={() => handleUpdateCategory(el.id)} onDelete={() => handleDeleteCategory(el.id)}/>
+                )}
+            </div>
         </Modal>
     )
 }

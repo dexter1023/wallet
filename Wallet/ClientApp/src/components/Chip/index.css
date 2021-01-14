@@ -2,6 +2,8 @@
   border-radius: 25px;
   padding: 10px;
   max-width: 100px;
+  color: #000;
+  font-weight: 700;
 }
 
 .not-selected {

@@ -38,8 +38,8 @@ const DataRow: React.FC<IDataRowProps> = ({data}) => (
 const EditRow: React.FC<IEditRowProps> = ({data, handleChange, categories}) => {
     return (
         <>
-            <td><Input placeholder="Tytuł" id="title" name="title" onInput={handleChange} required/></td>
-            <td><Input placeholder="Wartość" id="amount" name="amount" onInput={handleChange} required/></td>
+            <td><Input placeholder="Tytuł" id="title" name="title" onInput={handleChange} value={data.title} required/></td>
+            <td><Input type="number" placeholder="Wartość" id="amount" name="amount" onInput={handleChange} value={data.amount} required/></td>
             <td><Select options={actionOptions}></Select></td>
             <td><Select name="categoryId" options={mapCategories(categories)}></Select></td>
         </>

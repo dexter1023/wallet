@@ -10,6 +10,11 @@ export interface ITransaction extends IEnumKeys {
   category: ICategory
 }
 
+export interface ITransactionResponse {
+  transactions: ITransaction[]
+  count: number
+}
+
 export interface ITransactionDTO {
   title: string
   amount: number

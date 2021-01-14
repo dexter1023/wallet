@@ -5,14 +5,15 @@
   font-weight: 700;
   font-size: 20px;
   margin: 10px 0;
+  color: #fff;
 }
 
 .button {
-  background-color: #b1d4ff;
-  box-shadow: 0 0 5px #b1d4ff;
+  background-color: #144bde;
+  box-shadow: 0 0 5px #144bde;
 }
 
 .button-error {
-  background-color: #bd0909;
-  box-shadow: 0 0 5px #bd0909;
+  background-color: #8f0606;
+  box-shadow: 0 0 5px #8f0606;
 }

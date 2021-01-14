@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from 'react-modal'
+import Modal from '../Modal'
 import { ICategory } from "../../types/category.type"
 import { ITransactionDTO } from "../../types/transaction.model"
 import Input from '../InputForm'
@@ -32,12 +32,12 @@ export const actionOptions: IOption[] = [
 
 export const TransactionModal: React.FC<ITransactionModalProps> = ({isOpen, categories, handleClose, handleChange, handleSubmit}) => {
     return (
-        <Modal isOpen={isOpen} onRequestClose={handleClose}>
-            <form onSubmit={handleSubmit}>
+        <Modal isOpen={isOpen} handleClose={handleClose}>
+            <form onSubmit={handleSubmit} className="flex column">
                 <Input label="Tytuł" placeholder="Tytuł" id="title" name="title" onInput={handleChange} required/>
-                <Input label="Wartość" placeholder="Wartość" id="amount" name="amount" onInput={handleChange} required/>
-                <Select label="Akcja" options={actionOptions} onInput={handleChange}></Select>
-                <Select label="" name="categoryId" options={mapCategories(categories)} onInput={handleChange}></Select>
+                <Input label="Wartość" placeholder="Wartość" type="number" id="amount" name="amount" onInput={handleChange} required/>
+                <Select label="Akcja" options={actionOptions} onInput={handleChange} required></Select>
+                <Select label="Kategoria" name="categoryId" options={mapCategories(categories)} onInput={handleChange} required></Select>
                 <Button>Zapisz</Button>
             </form>
         </Modal>

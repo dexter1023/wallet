@@ -1,10 +1,15 @@
 import axios from '../plugins/axios'
-import { ITransaction, ITransactionDTO, ITransactionFilters } from '../types/transaction.model'
+import {
+  ITransaction,
+  ITransactionDTO,
+  ITransactionFilters,
+  ITransactionResponse,
+} from '../types/transaction.model'
 
 export class TransactionService {
-  async getTransactions(params: ITransactionFilters): Promise<ITransaction[]> {
+  async getTransactions(params: ITransactionFilters): Promise<ITransactionResponse> {
     try {
-      const { data } = await axios.get<ITransaction[]>('/transactions', { params })
+      const { data } = await axios.get<ITransactionResponse>('/transactions', { params })
       return data
     } catch (e) {
       throw e
